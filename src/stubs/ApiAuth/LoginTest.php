@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Testing\TestResponse;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class LoginTest extends ApiAuthTestCase
 {
@@ -125,8 +127,7 @@ class LoginTest extends ApiAuthTestCase
         }
 
         // set the xsrf token header, just like axios does automatically
-        $this->withHeader('X-XSRF-TOKEN', $this->fetchXsrfToken()
-            ->getCookieValue('XSRF-TOKEN'));
+        $this->withHeader('X-XSRF-TOKEN', $this->getXsrfTokenFromResponse($this->fetchXsrfToken()));
 
         $response = $this->postJson($this->loginRoute, array_merge([
             'email' => $this->validEmail,
@@ -153,5 +154,13 @@ class LoginTest extends ApiAuthTestCase
     protected function fetchXsrfToken()
     {
         return $this->getJson(rtrim(config('sanctum.prefix', 'sanctum'), '/').'/csrf-cookie');
+    }
+
+    protected function getXsrfTokenFromResponse(TestResponse $response): string {
+        $cookie = collect($response->headers->getCookies())->first(function (Cookie $cookie) {
+            return $cookie->getName() === 'XSRF-TOKEN';
+        });
+
+        return $cookie ? $cookie->getValue() : '';
     }
 }
