@@ -4,7 +4,7 @@ This is for sanctum `^2.0.0`. Follow their [docs](https://laravel.com/docs/7.x/s
 Quick note, ownership of these tests is yours. You're free to edit them however you'd like. Add more tests, remove, refactor...whatever you see fit. After installing, you're free to remove the package!
 
 ## Installation
-```
+```bash
 composer require joshmoreno/sanctum-auth-tests 
 
 php artisan sanctumAuthTests:publish
