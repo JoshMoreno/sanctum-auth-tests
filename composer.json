@@ -1,0 +1,35 @@
+{
+    "name": "joshmoreno/sanctum-auth-tests",
+    "description": "Auth tests for Laravel Sanctum",
+    "keywords": [
+        "joshmoreno",
+        "laravel",
+        "sanctum",
+        "auth",
+        "test",
+        "tests"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Josh Moreno",
+            "email": "josh@joshmoreno.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^6.9|^7.0",
+        "laravel/sanctum": "^2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "JoshMoreno\\SanctumAuthTests\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JoshMoreno\\SanctumAuthTests\\SanctumAuthTestsServiceProvider"
+            ]
+        }
+    }
+}
